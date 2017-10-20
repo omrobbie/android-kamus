@@ -7,4 +7,5 @@
     <dimen name="nav_header_height">160dp</dimen>
 
     <dimen name="space">8dp</dimen>
+    <dimen name="space_padding">16dp</dimen>
 </resources>
