@@ -38,6 +38,5 @@ dependencies {
 
     compile "com.github.mancj:MaterialSearchBar:$searchbarVersion"
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

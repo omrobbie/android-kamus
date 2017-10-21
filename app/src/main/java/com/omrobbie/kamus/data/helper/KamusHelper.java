@@ -41,7 +41,29 @@ public class KamusHelper {
     public Cursor searchQueryByName(String query, boolean isEnglish) {
         String DATABASE_TABLE = isEnglish ? ENGLISH : INDONESIA;
         return database.rawQuery("SELECT * FROM " + DATABASE_TABLE +
-                " WHERE " + DatabaseHelper.FIELD_WORD + " LIKE '%" + query + "%'", null);
+                " WHERE " + DatabaseHelper.FIELD_WORD + " LIKE '%" + query.trim() + "%'", null);
+    }
+
+    public ArrayList<KamusModel> getDataByName(String search, boolean isEnglish) {
+        KamusModel kamusModel;
+
+        ArrayList<KamusModel> arrayList = new ArrayList<>();
+        Cursor cursor = searchQueryByName(search, isEnglish);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            do {
+                kamusModel = new KamusModel();
+                kamusModel.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_ID)));
+                kamusModel.setWord(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_WORD)));
+                kamusModel.setTranslate(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.FIELD_TRANSLATE)));
+                arrayList.add(kamusModel);
+
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
+        }
+        cursor.close();
+        return arrayList;
     }
 
     public String getData(String search, boolean isEnglish) {

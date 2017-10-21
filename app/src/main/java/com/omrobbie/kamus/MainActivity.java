@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.omrobbie.kamus.adapter.SearchAdapter;
 import com.omrobbie.kamus.data.helper.KamusHelper;
 import com.omrobbie.kamus.data.model.KamusModel;
@@ -21,7 +22,10 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity
+        implements
+        NavigationView.OnNavigationItemSelectedListener,
+        MaterialSearchBar.OnSearchActionListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.nav_view)
     NavigationView nav_view;
 
+    @BindView(R.id.search_bar)
+    MaterialSearchBar search_bar;
+
     @BindView(R.id.recycler_view)
     RecyclerView recycler_view;
 
@@ -39,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SearchAdapter adapter;
 
     private ArrayList<KamusModel> list = new ArrayList<>();
+    private boolean isEnglish = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +63,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         nav_view.setNavigationItemSelectedListener(this);
+        search_bar.setOnSearchActionListener(this);
 
         kamusHelper = new KamusHelper(this);
 
         setupList();
-        loadData(true);
+        loadData();
         nav_view.getMenu().getItem(0).setChecked(true);
     }
 
@@ -79,13 +88,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_english_indonesia) {
-            loadData(true);
+            isEnglish = true;
+            loadData();
         } else if (id == R.id.nav_indonesia_english) {
-            loadData(false);
+            isEnglish = false;
+            loadData();
         }
 
         drawer_layout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * Invoked when SearchBar opened or closed
+     *
+     * @param enabled
+     */
+    @Override
+    public void onSearchStateChanged(boolean enabled) {
+
+    }
+
+    /**
+     * Invoked when search confirmed and "search" button is clicked on the soft keyboard
+     *
+     * @param text search input
+     */
+    @Override
+    public void onSearchConfirmed(CharSequence text) {
+        loadData(String.valueOf(text));
+    }
+
+    /**
+     * Invoked when "speech" or "navigation" buttons clicked.
+     *
+     * @param buttonCode {@link #BUTTON_NAVIGATION} or {@link #BUTTON_SPEECH} will be passed
+     */
+    @Override
+    public void onButtonClicked(int buttonCode) {
+
     }
 
     private void setupList() {
@@ -94,10 +135,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recycler_view.setAdapter(adapter);
     }
 
-    private void loadData(boolean isEnglish) {
+    private void loadData(String search) {
         try {
             kamusHelper.open();
-            list = kamusHelper.getAllData(isEnglish);
+            if (search.isEmpty()) {
+                list = kamusHelper.getAllData(isEnglish);
+            } else {
+                list = kamusHelper.getDataByName(search, isEnglish);
+            }
 
             if (isEnglish) {
                 getSupportActionBar().setSubtitle(getResources().getString(R.string.english_indonesia));
@@ -110,5 +155,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             kamusHelper.close();
         }
         adapter.replaceAll(list);
+    }
+
+    private void loadData() {
+        loadData("");
     }
 }
