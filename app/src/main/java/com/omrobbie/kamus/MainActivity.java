@@ -1,5 +1,6 @@
 package com.omrobbie.kamus;
 
+import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -90,9 +91,20 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_english_indonesia) {
             isEnglish = true;
             loadData();
-        } else if (id == R.id.nav_indonesia_english) {
+        }
+
+        if (id == R.id.nav_indonesia_english) {
             isEnglish = false;
             loadData();
+        }
+
+        if (id == R.id.nav_share) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.app_name));
+            intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
+            intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.app_name) + "\n\n" + getString(R.string.share_description));
+            startActivity(Intent.createChooser(intent, getResources().getString(R.string.share)));
         }
 
         drawer_layout.closeDrawer(GravityCompat.START);
