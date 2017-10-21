@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         kamusHelper = new KamusHelper(this);
 
         setupList();
-        loadData();
+        loadData(true);
+        nav_view.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
@@ -78,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_english_indonesia) {
-
+            loadData(true);
         } else if (id == R.id.nav_indonesia_english) {
-
+            loadData(false);
         }
 
         drawer_layout.closeDrawer(GravityCompat.START);
@@ -93,10 +94,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recycler_view.setAdapter(adapter);
     }
 
-    private void loadData() {
+    private void loadData(boolean isEnglish) {
         try {
             kamusHelper.open();
-            list = kamusHelper.getAllData(true);
+            list = kamusHelper.getAllData(isEnglish);
+
+            if (isEnglish) {
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.english_indonesia));
+            } else {
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.indonesia_english));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
