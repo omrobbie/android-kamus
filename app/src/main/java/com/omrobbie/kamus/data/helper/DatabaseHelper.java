@@ -11,7 +11,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static String DATABASE_NAME = "kamus.db";
-    public static String TABLE_NAME = "table_kamus";
+
+    public static String TABLE_ENGLISH = "english";
+    public static String TABLE_INDONESIA = "indonesia";
 
     public static String FIELD_ID = "id";
     public static String FIELD_WORD = "word";
@@ -19,7 +21,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-    public static String CREATE_TABLE = "create table " + TABLE_NAME + " (" +
+    public static String CREATE_TABLE_ENGLISH = "create table " + TABLE_ENGLISH + " (" +
+            FIELD_ID + " integer primary key autoincrement, " +
+            FIELD_WORD + " text not null, " +
+            FIELD_TRANSLATE + " text not null);";
+
+    public static String CREATE_TABLE_INDONESIA = "create table " + TABLE_INDONESIA + " (" +
             FIELD_ID + " integer primary key autoincrement, " +
             FIELD_WORD + " text not null, " +
             FIELD_TRANSLATE + " text not null);";
@@ -30,12 +37,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE);
+        db.execSQL(CREATE_TABLE_ENGLISH);
+        db.execSQL(CREATE_TABLE_INDONESIA);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ENGLISH);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INDONESIA);
         onCreate(db);
     }
 }

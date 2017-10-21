@@ -1,13 +1,22 @@
 package com.omrobbie.kamus;
 
+import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.omrobbie.kamus.adapter.SearchAdapter;
+import com.omrobbie.kamus.data.helper.KamusHelper;
+import com.omrobbie.kamus.data.model.KamusModel;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +31,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @BindView(R.id.nav_view)
     NavigationView nav_view;
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recycler_view;
+
+    private KamusHelper kamusHelper;
+    private SearchAdapter adapter;
+
+    private ArrayList<KamusModel> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +55,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         nav_view.setNavigationItemSelectedListener(this);
+
+        kamusHelper = new KamusHelper(this);
+
+        setupList();
+        loadData();
     }
 
     @Override
@@ -63,5 +85,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer_layout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setupList() {
+        adapter = new SearchAdapter();
+        recycler_view.setLayoutManager(new LinearLayoutManager(this));
+        recycler_view.setAdapter(adapter);
+    }
+
+    private void loadData() {
+        try {
+            kamusHelper.open();
+            list = kamusHelper.getAllData(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            kamusHelper.close();
+        }
+        adapter.replaceAll(list);
     }
 }

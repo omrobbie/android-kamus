@@ -17,7 +17,8 @@ import java.util.ArrayList;
 
 public class KamusHelper {
 
-    private static String DATABASE_TABLE = DatabaseHelper.TABLE_NAME;
+    private static String ENGLISH = DatabaseHelper.TABLE_ENGLISH;
+    private static String INDONESIA = DatabaseHelper.TABLE_INDONESIA;
 
     private Context context;
     private DatabaseHelper databaseHelper;
@@ -37,14 +38,15 @@ public class KamusHelper {
         databaseHelper.close();
     }
 
-    public Cursor searchQueryByName(String query) {
+    public Cursor searchQueryByName(String query, boolean isEnglish) {
+        String DATABASE_TABLE = isEnglish ? ENGLISH : INDONESIA;
         return database.rawQuery("SELECT * FROM " + DATABASE_TABLE +
                 " WHERE " + DatabaseHelper.FIELD_WORD + " LIKE '%" + query + "%'", null);
     }
 
-    public String getData(String search) {
+    public String getData(String search, boolean isEnglish) {
         String result = "";
-        Cursor cursor = searchQueryByName(search);
+        Cursor cursor = searchQueryByName(search, isEnglish);
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
             result = cursor.getString(2);
@@ -56,15 +58,16 @@ public class KamusHelper {
         return result;
     }
 
-    public Cursor queryAllData() {
+    public Cursor queryAllData(boolean isEnglish) {
+        String DATABASE_TABLE = isEnglish ? ENGLISH : INDONESIA;
         return database.rawQuery("SELECT * FROM " + DATABASE_TABLE + " ORDER BY " + DatabaseHelper.FIELD_ID + " ASC", null);
     }
 
-    public ArrayList<KamusModel> getAllData() {
+    public ArrayList<KamusModel> getAllData(boolean isEnglish) {
         KamusModel kamusModel;
 
         ArrayList<KamusModel> arrayList = new ArrayList<>();
-        Cursor cursor = queryAllData();
+        Cursor cursor = queryAllData(isEnglish);
 
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
@@ -82,14 +85,16 @@ public class KamusHelper {
         return arrayList;
     }
 
-    public long insert(KamusModel kamusModel) {
+    public long insert(KamusModel kamusModel, boolean isEnglish) {
+        String DATABASE_TABLE = isEnglish ? ENGLISH : INDONESIA;
         ContentValues initialValues = new ContentValues();
         initialValues.put(DatabaseHelper.FIELD_WORD, kamusModel.getWord());
         initialValues.put(DatabaseHelper.FIELD_TRANSLATE, kamusModel.getTranslate());
         return database.insert(DATABASE_TABLE, null, initialValues);
     }
 
-    public void insertTransaction(ArrayList<KamusModel> kamusModels) {
+    public void insertTransaction(ArrayList<KamusModel> kamusModels, boolean isEnglish) {
+        String DATABASE_TABLE = isEnglish ? ENGLISH : INDONESIA;
         String sql = "INSERT INTO " + DATABASE_TABLE + " (" +
                 DatabaseHelper.FIELD_WORD + ", " +
                 DatabaseHelper.FIELD_TRANSLATE + ") VALUES (?, ?)";
@@ -108,14 +113,16 @@ public class KamusHelper {
         database.endTransaction();
     }
 
-    public void update(KamusModel kamusModel) {
+    public void update(KamusModel kamusModel, boolean isEnglish) {
+        String DATABASE_TABLE = isEnglish ? ENGLISH : INDONESIA;
         ContentValues args = new ContentValues();
         args.put(DatabaseHelper.FIELD_WORD, kamusModel.getWord());
         args.put(DatabaseHelper.FIELD_TRANSLATE, kamusModel.getTranslate());
         database.update(DATABASE_TABLE, args, DatabaseHelper.FIELD_ID + "= '" + kamusModel.getId() + "'", null);
     }
 
-    public void delete(int id) {
-        database.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.FIELD_ID + " = '" + id + "'", null);
+    public void delete(int id, boolean isEnglish) {
+        String DATABASE_TABLE = isEnglish ? ENGLISH : INDONESIA;
+        database.delete(DATABASE_TABLE, DatabaseHelper.FIELD_ID + " = '" + id + "'", null);
     }
 }

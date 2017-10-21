@@ -24,12 +24,14 @@
         android:src="@drawable/dicoding" />
 
     <TextView
+        android:id="@+id/tv_load"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/progress_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space"
-        android:text="Load data untuk pertama kali"
+        android:gravity="center"
+        android:text="Sistem akan meload data untuk pertama kali\nHarap menunggu"
         android:textAppearance="?android:textAppearanceSmallInverse" />
 
 </RelativeLayout>

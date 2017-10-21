@@ -3,13 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/space_padding">
+    android:paddingBottom="@dimen/space"
+    android:paddingLeft="@dimen/space_padding"
+    android:paddingRight="@dimen/space_padding"
+    android:paddingTop="@dimen/space">
 
     <TextView
         android:id="@+id/tv_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Word"
+        android:textSize="@dimen/txt_title"
         android:textStyle="bold" />
 
     <TextView
