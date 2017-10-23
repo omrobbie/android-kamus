@@ -12,4 +12,6 @@
     <string name="share_description">Lupa arti kata dalam bahasa inggris? Download aplikasi keren ini biar kamu ga bingung!</string>
 
     <string name="search_by_meaning">cari arti kata</string>
+
+    <string name="first_load">Sistem akan meload data untuk pertama kali\nHarap menunggu</string>
 </resources>

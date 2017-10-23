@@ -12,7 +12,6 @@
         android:id="@+id/tv_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Word"
         android:textSize="@dimen/txt_title"
         android:textStyle="bold" />
 
@@ -21,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:singleLine="true"
-        android:text="The meaning of the word ntsoiran otsnra eotnseora nteos naetosna eiot nsonteso" />
+        android:singleLine="true" />
 
 </LinearLayout>

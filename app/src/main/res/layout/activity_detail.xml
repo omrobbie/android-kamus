@@ -12,7 +12,6 @@
         android:id="@+id/tv_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Word"
         android:textSize="@dimen/txt_title"
         android:textStyle="bold" />
 
@@ -20,14 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_padding"
-        android:text="Transtate"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_translate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space"
-        android:text="The meaning of the word" />
+        android:layout_marginTop="@dimen/space" />
 
 </LinearLayout>

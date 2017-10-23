@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space"
         android:gravity="center"
-        android:text="Sistem akan meload data untuk pertama kali\nHarap menunggu"
+        android:text="@string/first_load"
         android:textAppearance="?android:textAppearanceSmallInverse" />
 
 </RelativeLayout>
