@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -91,21 +90,13 @@ public class PreloadActivity extends AppCompatActivity {
                 Double progressMaxInsert = 100.0;
                 Double progressDiff = (progressMaxInsert - progress) / (kamusEnglish.size() + kamusIndonesia.size());
 
-                for (KamusModel model : kamusEnglish) {
-                    kamusHelper.insert(model, true);
-                    Log.d("TAG", "doInBackground: kamusEnglish" + model.getWord());
-                    progress += progressDiff;
+                kamusHelper.insertTransaction(kamusEnglish, true);
+                progress += progressDiff;
+                publishProgress((int) progress);
 
-                    publishProgress((int) progress);
-                }
-
-                for (KamusModel model : kamusIndonesia) {
-                    kamusHelper.insert(model, false);
-                    Log.d("TAG", "doInBackground: kamusIndonesia" + model.getWord());
-                    progress += progressDiff;
-
-                    publishProgress((int) progress);
-                }
+                kamusHelper.insertTransaction(kamusIndonesia, false);
+                progress += progressDiff;
+                publishProgress((int) progress);
 
                 kamusHelper.close();
                 appPreference.setFirstRun(false);
