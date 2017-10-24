@@ -8,7 +8,9 @@
     <string name="english_indonesia">English-Indonesia</string>
     <string name="indonesia_english">Indonesia-English</string>
 
-    <string name="share">Share</string>
+    <string name="translate">Terjemahan</string>
+
+    <string name="share">Bagikan</string>
     <string name="share_description">Lupa arti kata dalam bahasa inggris? Download aplikasi keren ini biar kamu ga bingung!</string>
 
     <string name="search_by_meaning">cari arti kata</string>
