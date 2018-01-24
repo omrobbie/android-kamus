@@ -1,3 +1,9 @@
+/*
+ * Created by omrobbie.
+ * Copyright (c) 2018. All rights reserved.
+ * Last modified 10/20/17 3:19 PM.
+ */
+
 package com.omrobbie.kamus.adapter;
 
 import android.support.v7.widget.RecyclerView;

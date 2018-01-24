@@ -1,3 +1,9 @@
+/*
+ * Created by omrobbie.
+ * Copyright (c) 2018. All rights reserved.
+ * Last modified 1/24/18 12:11 PM.
+ */
+
 package com.omrobbie.kamus;
 
 import android.content.Intent;

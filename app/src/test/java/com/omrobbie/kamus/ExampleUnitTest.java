@@ -1,3 +1,9 @@
+/*
+ * Created by omrobbie.
+ * Copyright (c) 2018. All rights reserved.
+ * Last modified 10/19/17 2:32 PM.
+ */
+
 package com.omrobbie.kamus;
 
 import org.junit.Test;

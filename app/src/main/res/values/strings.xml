@@ -1,3 +1,9 @@
+<!--
+  ~ Created by omrobbie.
+  ~ Copyright (c) 2018. All rights reserved.
+  ~ Last modified 10/24/17 11:14 AM.
+  -->
+
 <resources>
     <string name="app_name">Kamus</string>
     <string name="app_first_run">First Run!</string>

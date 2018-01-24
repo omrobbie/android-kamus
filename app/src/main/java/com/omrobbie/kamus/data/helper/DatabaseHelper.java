@@ -1,3 +1,9 @@
+/*
+ * Created by omrobbie.
+ * Copyright (c) 2018. All rights reserved.
+ * Last modified 10/21/17 10:25 AM.
+ */
+
 package com.omrobbie.kamus.data.helper;
 
 import android.content.Context;
