@@ -1,10 +1,10 @@
 # Kamus Indonesia-Inggris
 The third final project from dicoding.com online course. Create dictionary apps using Content Provider.
 
-### Penampakan
+## Penampakan
 <img src="https://github.com/omrobbie/android-kamus/blob/master/screenshot/Screenshot_1516766784.png" width="256">&nbsp;&nbsp;<img src="https://github.com/omrobbie/android-kamus/blob/master/screenshot/Screenshot_1516766787.png" width="256">&nbsp;&nbsp;<img src="https://github.com/omrobbie/android-kamus/blob/master/screenshot/Screenshot_1516766805.png" width="256">
 
-### Submission
+## Submission 3
 Untuk menyelesaikan modul Basis, Anda harus submit aplikasi kamus translate Inggris-Indonesia dan Indonesia-Inggris. Dengan menggunakan materi pada SharedPreferences, SQLite, Preload Data, diharapkan dapat membantu dalam membuat aplikasi kamus. Requirements atau Fitur yang harus ada pada aplikasi kamu:
 
 1. Menggunakan SharedPreferences untuk mengetahui aplikasi dijalankan pertama kali atau tidak.
